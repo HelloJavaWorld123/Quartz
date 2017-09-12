@@ -1,0 +1,17 @@
+server:
+  port: 8081
+spring:
+  datasource:
+    username: healthmall_sail
+    password: healthmall_sail
+    url: jdbc:mysql://10.0.0.190:3306:3306/healthmall_sail?useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.jdbc.Driver
+logging:
+  file: quartz.log
+  level: debug,info
+
+
+
+
+
+
