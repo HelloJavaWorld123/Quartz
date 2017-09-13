@@ -3,7 +3,7 @@ package com.quartz.project.execute;
 import com.quartz.project.job.EveryDateJob;
 import com.quartz.project.job.Love;
 import org.quartz.*;
-import org.quartz.impl.StdScheduler;
+import org.quartz.impl.jdbcjobstore.TriggerStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +52,7 @@ public class JobExcetue
 		try
 		{
 			scheduler.scheduleJob(jobDetail, trigger);
+
 		} catch (SchedulerException e)
 		{
 			LOG.info("任务执行失败：{}", e.getMessage());
@@ -71,22 +72,15 @@ public class JobExcetue
 		JobDetail detail = JobBuilder.newJob(EveryDateJob.class).withIdentity(JOB_NAME, JOB_GROUP).build();
 
 		//创建一个 触发器
-		Trigger trigger = TriggerBuilder.newTrigger().withIdentity(TRIGGER_NAME, TRIGGER_GROUP).build();
+		Trigger trigger =  TriggerBuilder.newTrigger().withIdentity(TRIGGER_NAME, TRIGGER_GROUP).build();
+
+		detail.getJobDataMap().put("hello","world");
+		detail.getJobDataMap().put("Quartz","能不能取出数据");
 
 
 		try
 		{
 			Trigger.TriggerState state = scheduler.getTriggerState(TriggerKey.triggerKey(TRIGGER_NAME,TRIGGER_GROUP));
-			LOG.info("当前触发器的执行转态为：{}" ,state);
-		} catch (SchedulerException e)
-		{
-			LOG.debug("当前触发器执行状态失败：{}",e.getMessage());
-			e.printStackTrace();
-		}
-
-		try
-		{
-			Trigger.TriggerState state = scheduler.getTriggerState(trigger.getKey());
 			LOG.info("当前触发器的状态：{}" ,state);
 
 			scheduler.scheduleJob(detail,trigger);

@@ -21,5 +21,13 @@ public class EveryDateJob implements Job
 			throws JobExecutionException
 	{
 		LOG.info("笑口常开 好彩自然来");
+
+		//从jobDetail的JobMap中获取到 保存的数据
+		String  hello = (String)context.getJobDetail().getJobDataMap().get("hello");
+		LOG.info("从JOBDetail中获取到：{}",hello);
+
+		String  quartz = (String)context.getJobDetail().getJobDataMap().get("Quartz");
+		LOG.info("获取第二个设置好的数据:{}",quartz);
+
 	}
 }
