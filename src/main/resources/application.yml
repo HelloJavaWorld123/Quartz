@@ -6,9 +6,13 @@ spring:
     password: healthmall_sail
     url: jdbc:mysql://10.0.0.190:3306:3306/healthmall_sail?useUnicode=true&characterEncoding=utf-8
     driver-class-name: com.mysql.jdbc.Driver
+
+#会在项目的根目录下产生一个日志文件；
+#设置日志文件的名称 与 设置日志文件的路劲不能同时存在
 logging:
   file: quartz.log
   level: debug,info
+
 
 
 
